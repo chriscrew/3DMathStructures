@@ -1,0 +1,7 @@
+Vector.h User Guide
+
+Allows for the creation of Vector2 and Vector3 objects
+
+Access elements with .X() or .SetX()
+
+Includes functions for Length, Length Squared, Distance, Distance Squared, Dot, Cross for Vector3, and Normalization.
