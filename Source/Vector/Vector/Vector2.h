@@ -1,30 +1,36 @@
+#pragma once
+
 //A class for representing a 2d vector or point in space
 //written by Kyle Marchev
 class Vector2
 {
 public:
-	__declspec(dllexport) Vector2();
-	__declspec(dllexport) Vector2(float x, float y);
+	Vector2();
+	Vector2(float x, float y);
 
-	float __declspec(dllexport) X();
-	float __declspec(dllexport) Y();
+	float X();
+	float Y();
 
-	void __declspec(dllexport) SetX(float x);
-	void __declspec(dllexport) SetY(float y);
+	void SetX(float x);
+	void SetY(float y);
 
-	float __declspec(dllexport) Length();
-	float __declspec(dllexport) LengthSquared();
+	float Length();
+	float LengthSquared();
 
-	float __declspec(dllexport) Distance(Vector2 other);
-	float __declspec(dllexport) DistanceSquared(Vector2 other);
+	float Distance(Vector2 other);
+	float DistanceSquared(Vector2 other);
 
-	float __declspec(dllexport) Dot(Vector2 other);
+	float Dot(Vector2 other);
 
-	void __declspec(dllexport) Normalize();
-	Vector2 __declspec(dllexport) Normalized();
+	void Normalize();
+	Vector2 Normalized();
+
+	Vector2& operator+(const Vector2 &rhs);
+	Vector2& operator-(const Vector2 &rhs);
+	Vector2& operator*(const int &rhs);
+	Vector2& operator/(const int &rhs);
 
 private:
-
 	float mX;
 	float mY;
 };

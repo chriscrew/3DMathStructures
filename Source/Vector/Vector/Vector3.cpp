@@ -106,3 +106,35 @@ Vector3 Vector3::Normalized()
 
 	return result;
 }
+
+Vector3& Vector3::operator+(const Vector3 &rhs)
+{
+	mX += rhs.mX;
+	mY += rhs.mY;
+	mZ += rhs.mZ;
+	return *this;
+}
+
+Vector3& Vector3::operator-(const Vector3 &rhs)
+{
+	mX -= rhs.mX;
+	mY -= rhs.mY;
+	mZ -= rhs.mZ;
+	return *this;
+}
+
+Vector3& Vector3::operator*(const int &rhs)
+{
+	mX *= rhs;
+	mY *= rhs;
+	mZ *= rhs;
+	return *this;
+}
+
+Vector3& Vector3::operator/(const int &rhs)
+{
+	mX /= rhs;
+	mY /= rhs;
+	mZ /= rhs;
+	return *this;
+}
