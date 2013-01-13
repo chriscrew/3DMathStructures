@@ -16,8 +16,8 @@ public:
 
 	float* GetPtr();
 
-	static Matrix GenTranslaion(Vector3 pos);
-	static Matrix GenTranslaion(float x, float y, float z);
+	static Matrix GenTranslation(Vector3 pos);
+	static Matrix GenTranslation(float x, float y, float z);
 
 	static Matrix GenRotation(Vector3 eulerAngles);
 	static Matrix GenRotation(float x, float y, float z);

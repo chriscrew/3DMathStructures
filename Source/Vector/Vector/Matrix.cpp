@@ -54,7 +54,7 @@ float* Matrix::GetPtr()
 	return mValues;
 }
 
-Matrix Matrix::GenTranslaion(Vector3 pos)
+Matrix Matrix::GenTranslation(Vector3 pos)
 {
 	Matrix matrix;
 	matrix.SetRow(1, 1.0f, 0.0f, 0.0f, pos.X());
@@ -64,7 +64,7 @@ Matrix Matrix::GenTranslaion(Vector3 pos)
 	return matrix;
 }
 
-Matrix Matrix::GenTranslaion(float x, float y, float z)
+Matrix Matrix::GenTranslation(float x, float y, float z)
 {
 	Matrix matrix;
 	matrix.SetRow(1, 1.0f, 0.0f, 0.0f, x);
