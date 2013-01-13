@@ -22,6 +22,8 @@ public:
 	static Matrix GenRotation(Vector3 eulerAngles);
 	static Matrix GenRotation(float x, float y, float z);
 
+	static Matrix GenLookAt(Vector3 target, Vector3 position, Vector3 up);
+
 	Matrix& operator*(const Matrix &rhs);
 	
 private:

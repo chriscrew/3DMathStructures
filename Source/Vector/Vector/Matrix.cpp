@@ -120,6 +120,21 @@ Matrix Matrix::GenRotation(float x, float y, float z)
 	return matrixX * matrixY * matrixZ;
 }
 
+Matrix Matrix::GenLookAt(Vector3 target, Vector3 position, Vector3 up)
+{
+	Vector3 zAxis = (target - position).Normalized();
+	Vector3 xAxis = up.Cross(zAxis).Normalized();
+	Vector3 yAxis = zAxis.Cross(xAxis);
+
+	Matrix matrix;
+	matrix.SetRow(1, xAxis.X(), xAxis.Y(), xAxis.Z(), -xAxis.Dot(position));
+	matrix.SetRow(1, yAxis.X(), yAxis.Y(), yAxis.Z(), -yAxis.Dot(position));
+	matrix.SetRow(1, zAxis.X(), zAxis.Y(), zAxis.Z(), -zAxis.Dot(position));
+	matrix.SetRow(1, 0        , 0        , 0        , 1                   );
+
+	return matrix;
+}
+
 int Matrix::TwoDimToOneDim(int x, int y)
 {
 	return (y * 10) + x;
