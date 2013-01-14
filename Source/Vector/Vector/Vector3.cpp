@@ -107,7 +107,14 @@ Vector3 Vector3::Normalized()
 	return result;
 }
 
-Vector3& Vector3::operator+(const Vector3 &rhs)
+Vector3 Vector3::operator+(const Vector3 &rhs)
+{
+	Vector3 vector = *this;
+	vector += rhs;
+	return vector;
+}
+
+Vector3& Vector3::operator+=(const Vector3 &rhs)
 {
 	mX += rhs.mX;
 	mY += rhs.mY;
@@ -115,7 +122,14 @@ Vector3& Vector3::operator+(const Vector3 &rhs)
 	return *this;
 }
 
-Vector3& Vector3::operator-(const Vector3 &rhs)
+Vector3 Vector3::operator-(const Vector3 &rhs)
+{
+	Vector3 vector = *this;
+	vector -= rhs;
+	return vector;
+}
+
+Vector3& Vector3::operator-=(const Vector3 &rhs)
 {
 	mX -= rhs.mX;
 	mY -= rhs.mY;
@@ -123,7 +137,14 @@ Vector3& Vector3::operator-(const Vector3 &rhs)
 	return *this;
 }
 
-Vector3& Vector3::operator*(const int &rhs)
+Vector3 Vector3::operator*(const int &rhs)
+{
+	Vector3 vector = *this;
+	vector *= rhs;
+	return vector;
+}
+
+Vector3& Vector3::operator*=(const int &rhs)
 {
 	mX *= rhs;
 	mY *= rhs;
@@ -131,7 +152,14 @@ Vector3& Vector3::operator*(const int &rhs)
 	return *this;
 }
 
-Vector3& Vector3::operator/(const int &rhs)
+Vector3 Vector3::operator/(const int &rhs)
+{
+	Vector3 vector = *this;
+	vector /= rhs;
+	return vector;
+}
+
+Vector3& Vector3::operator/=(const int &rhs)
 {
 	mX /= rhs;
 	mY /= rhs;

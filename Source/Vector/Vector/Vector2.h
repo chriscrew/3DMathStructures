@@ -25,10 +25,14 @@ public:
 	void Normalize();
 	Vector2 Normalized();
 
-	Vector2& operator+(const Vector2 &rhs);
-	Vector2& operator-(const Vector2 &rhs);
-	Vector2& operator*(const int &rhs);
-	Vector2& operator/(const int &rhs);
+	Vector2 operator+(const Vector2 &rhs);
+	Vector2& operator+=(const Vector2 &rhs);
+	Vector2 operator-(const Vector2 &rhs);
+	Vector2& operator-=(const Vector2 &rhs);
+	Vector2 operator*(const int &rhs);
+	Vector2& operator*=(const int &rhs);
+	Vector2 operator/(const int &rhs);
+	Vector2& operator/=(const int &rhs);
 
 private:
 	float mX;

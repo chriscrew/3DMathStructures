@@ -82,3 +82,59 @@ Vector2 Vector2::Normalized()
 
 	return result;
 }
+
+Vector2 Vector2::operator+(const Vector2 &rhs)
+{
+	Vector2 vector = *this;
+	vector += rhs;
+	return vector;
+}
+
+Vector2& Vector2::operator+=(const Vector2 &rhs)
+{
+	mX += rhs.mX;
+	mY += rhs.mY;
+	return *this;
+}
+
+Vector2 Vector2::operator-(const Vector2 &rhs)
+{
+	Vector2 vector = *this;
+	vector -= rhs;
+	return vector;
+}
+
+Vector2& Vector2::operator-=(const Vector2 &rhs)
+{
+	mX -= rhs.mX;
+	mY -= rhs.mY;
+	return *this;
+}
+
+Vector2 Vector2::operator*(const int &rhs)
+{
+	Vector2 vector = *this;
+	vector *= rhs;
+	return vector;
+}
+
+Vector2& Vector2::operator*=(const int &rhs)
+{
+	mX *= rhs;
+	mY *= rhs;
+	return *this;
+}
+
+Vector2 Vector2::operator/(const int &rhs)
+{
+	Vector2 vector = *this;
+	vector /= rhs;
+	return vector;
+}
+
+Vector2& Vector2::operator/=(const int &rhs)
+{
+	mX /= rhs;
+	mY /= rhs;
+	return *this;
+}

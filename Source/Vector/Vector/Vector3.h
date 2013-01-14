@@ -28,10 +28,14 @@ public:
 	void Normalize();
 	Vector3 Normalized();
 
-	Vector3& operator+(const Vector3 &rhs);
-	Vector3& operator-(const Vector3 &rhs);
-	Vector3& operator*(const int &rhs);
-	Vector3& operator/(const int &rhs);
+	Vector3 operator+(const Vector3 &rhs);
+	Vector3& operator+=(const Vector3 &rhs);
+	Vector3 operator-(const Vector3 &rhs);
+	Vector3& operator-=(const Vector3 &rhs);
+	Vector3 operator*(const int &rhs);
+	Vector3& operator*=(const int &rhs);
+	Vector3 operator/(const int &rhs);
+	Vector3& operator/=(const int &rhs);
 
 private:
 
