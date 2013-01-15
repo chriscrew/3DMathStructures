@@ -49,6 +49,25 @@ void Matrix::SetCollumm(int collumn, float x, float y, float z, float w)
 	mValues[(collumn * 4) + 3] = w;
 }
 
+Vector3 Matrix::TransformPoint(Vector3 point)
+{
+	Vector3 result;
+	
+	result.SetX(mValues[Matrix::TwoDimToOneDim(0,0,4)] * point.X() + 
+				mValues[Matrix::TwoDimToOneDim(0,1,4)] * point.Y() + 
+				mValues[Matrix::TwoDimToOneDim(0,2,4)] * point.Z());
+
+	result.SetY(mValues[Matrix::TwoDimToOneDim(1,0,4)] * point.X() + 
+				mValues[Matrix::TwoDimToOneDim(1,1,4)] * point.Y() + 
+				mValues[Matrix::TwoDimToOneDim(1,2,4)] * point.Z());
+
+	result.SetZ(mValues[Matrix::TwoDimToOneDim(2,0,4)] * point.X() + 
+				mValues[Matrix::TwoDimToOneDim(2,1,4)] * point.Y() + 
+				mValues[Matrix::TwoDimToOneDim(2,2,4)] * point.Z());	
+
+	return result;
+}
+
 float* Matrix::GetPtr()
 {
 	return mValues;
@@ -77,22 +96,22 @@ Matrix Matrix::GenTranslation(float x, float y, float z)
 Matrix Matrix::GenRotation(Vector3 eulerAngles)
 {
 	Matrix matrixX;
-	matrixX.SetRow(1, 1.0f     , 0.0f    , 0.0f     , 0.0f);
+	matrixX.SetRow(1, 1.0f     , 0.0f                , 0.0f                , 0.0f);
 	matrixX.SetRow(2, 0.0f     , cos(eulerAngles.X()), sin(eulerAngles.X()), 0.0f);
 	matrixX.SetRow(3, 0.0f     ,-sin(eulerAngles.X()), cos(eulerAngles.X()), 0.0f);
-	matrixX.SetRow(4, 0.0f     , 0.0f   , 0.0f     , 1.0f);
+	matrixX.SetRow(4, 0.0f     , 0.0f                , 0.0f                , 1.0f);
 
 	Matrix matrixY;
 	matrixY.SetRow(1, cos(eulerAngles.Y()), 0.0f     ,-sin(eulerAngles.Y()), 0.0f);
-	matrixY.SetRow(2, 0.0f     , 1.0f     , 0.0f     , 0.0f);
-	matrixY.SetRow(3, sin(eulerAngles.Y()), 0.0f     , cos(eulerAngles.X()), 0.0f);
-	matrixY.SetRow(4, 0.0f     , 0.0f     , 0.0f     , 1.0f);
+	matrixY.SetRow(2, 0.0f                , 1.0f     , 0.0f                , 0.0f);
+	matrixY.SetRow(3, sin(eulerAngles.Y()), 0.0f     , cos(eulerAngles.Y()), 0.0f);
+	matrixY.SetRow(4, 0.0f                , 0.0f     , 0.0f                , 1.0f);
 
 	Matrix matrixZ;
 	matrixZ.SetRow(1, cos(eulerAngles.Z()), sin(eulerAngles.Z()), 0.0f     , 0.0f);
 	matrixZ.SetRow(2,-sin(eulerAngles.Z()), cos(eulerAngles.Z()), 0.0f     , 0.0f);
-	matrixZ.SetRow(3, 0.0f     , 0.0f     , 1.0f     , 0.0f);
-	matrixZ.SetRow(4, 0.0f     , 0.0f     , 0.0f     , 1.0f);
+	matrixZ.SetRow(3, 0.0f                , 0.0f                , 1.0f     , 0.0f);
+	matrixZ.SetRow(4, 0.0f                , 0.0f                , 0.0f     , 1.0f);
 
 	return matrixX * matrixY * matrixZ;
 }
@@ -108,7 +127,7 @@ Matrix Matrix::GenRotation(float x, float y, float z)
 	Matrix matrixY;
 	matrixY.SetRow(1, cos(y), 0.0f   ,-sin(y), 0.0f);
 	matrixY.SetRow(2, 0.0f  , 1.0f   , 0.0f  , 0.0f);
-	matrixY.SetRow(3, sin(y), 0.0f   , cos(x), 0.0f);
+	matrixY.SetRow(3, sin(y), 0.0f   , cos(y), 0.0f);
 	matrixY.SetRow(4, 0.0f  , 0.0f   , 0.0f  , 1.0f);
 
 	Matrix matrixZ;

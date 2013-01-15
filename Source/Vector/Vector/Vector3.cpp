@@ -5,6 +5,7 @@ Vector3::Vector3()
 {
 	mX = 0;
 	mY = 0;
+	mZ = 0;
 }
 
 Vector3::Vector3(float x, float y, float z)
@@ -137,14 +138,14 @@ Vector3& Vector3::operator-=(const Vector3 &rhs)
 	return *this;
 }
 
-Vector3 Vector3::operator*(const int &rhs)
+Vector3 Vector3::operator*(const float &rhs)
 {
 	Vector3 vector = *this;
 	vector *= rhs;
 	return vector;
 }
 
-Vector3& Vector3::operator*=(const int &rhs)
+Vector3& Vector3::operator*=(const float &rhs)
 {
 	mX *= rhs;
 	mY *= rhs;
@@ -152,14 +153,14 @@ Vector3& Vector3::operator*=(const int &rhs)
 	return *this;
 }
 
-Vector3 Vector3::operator/(const int &rhs)
+Vector3 Vector3::operator/(const float &rhs)
 {
 	Vector3 vector = *this;
 	vector /= rhs;
 	return vector;
 }
 
-Vector3& Vector3::operator/=(const int &rhs)
+Vector3& Vector3::operator/=(const float &rhs)
 {
 	mX /= rhs;
 	mY /= rhs;

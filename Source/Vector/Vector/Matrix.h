@@ -14,6 +14,8 @@ public:
 	void SetRow(int row, float x, float y, float z, float w);
 	void SetCollumm(int collumn, float x, float y, float z, float w);
 
+	Vector3 TransformPoint(Vector3 point);
+
 	float* GetPtr();
 
 	static Matrix GenTranslation(Vector3 pos);
