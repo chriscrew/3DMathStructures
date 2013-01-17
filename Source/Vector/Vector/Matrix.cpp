@@ -68,6 +68,334 @@ Vector3 Matrix::TransformPoint(Vector3 point)
 	return result;
 }
 
+void Matrix::Transpose()
+{
+	float temp[16];
+
+	for(int i = 0; i < 16; i++)
+	{
+		temp[i] = mValues[i];
+	}
+
+	mValues[0] = temp[0];
+	mValues[1] = temp[4];
+	mValues[2] = temp[8];
+	mValues[3] = temp[12];
+	mValues[4] = temp[1];
+	mValues[5] = temp[5];
+	mValues[6] = temp[9];
+	mValues[7] = temp[13];
+	mValues[8] = temp[2];
+	mValues[9] = temp[6];
+	mValues[10] = temp[10];
+	mValues[11] = temp[14];
+	mValues[12] = temp[3];
+	mValues[13] = temp[7];
+	mValues[14] = temp[11];
+	mValues[15] = temp[15];
+}
+
+Matrix Matrix::Transposed()
+{
+	Matrix result;
+
+	float temp[16];
+
+	for(int i = 0; i < 16; i++)
+	{
+		temp[i] = mValues[i];
+	}
+
+	result.SetValue(1, 1, temp[0]);
+	result.SetValue(1, 2, temp[4]);
+	result.SetValue(1, 3, temp[8]);
+	result.SetValue(1, 4, temp[12]);
+	result.SetValue(2, 1, temp[1]);
+	result.SetValue(2, 2, temp[5]);
+	result.SetValue(2, 3, temp[9]);
+	result.SetValue(2, 4, temp[13]);
+	result.SetValue(3, 1, temp[2]);
+	result.SetValue(3, 2, temp[6]);
+	result.SetValue(3, 3, temp[10]);
+	result.SetValue(3, 4, temp[14]);
+	result.SetValue(4, 1, temp[3]);
+	result.SetValue(4, 2, temp[7]);
+	result.SetValue(4, 3, temp[11]);
+	result.SetValue(4, 4, temp[15]);
+
+	return result;
+}
+
+void Matrix::Invert()
+{
+	float temp[16];
+
+    temp[0] = mValues[5]  * mValues[10] * mValues[15] - 
+             mValues[5]  * mValues[11] * mValues[14] - 
+             mValues[9]  * mValues[6]  * mValues[15] + 
+             mValues[9]  * mValues[7]  * mValues[14] +
+             mValues[13] * mValues[6]  * mValues[11] - 
+             mValues[13] * mValues[7]  * mValues[10];
+
+    temp[4] = -mValues[4]  * mValues[10] * mValues[15] + 
+              mValues[4]  * mValues[11] * mValues[14] + 
+              mValues[8]  * mValues[6]  * mValues[15] - 
+              mValues[8]  * mValues[7]  * mValues[14] - 
+              mValues[12] * mValues[6]  * mValues[11] + 
+              mValues[12] * mValues[7]  * mValues[10];
+
+    temp[8] = mValues[4]  * mValues[9] * mValues[15] - 
+             mValues[4]  * mValues[11] * mValues[13] - 
+             mValues[8]  * mValues[5] * mValues[15] + 
+             mValues[8]  * mValues[7] * mValues[13] + 
+             mValues[12] * mValues[5] * mValues[11] - 
+             mValues[12] * mValues[7] * mValues[9];
+
+    temp[12] = -mValues[4]  * mValues[9] * mValues[14] + 
+               mValues[4]  * mValues[10] * mValues[13] +
+               mValues[8]  * mValues[5] * mValues[14] - 
+               mValues[8]  * mValues[6] * mValues[13] - 
+               mValues[12] * mValues[5] * mValues[10] + 
+               mValues[12] * mValues[6] * mValues[9];
+
+    temp[1] = -mValues[1]  * mValues[10] * mValues[15] + 
+              mValues[1]  * mValues[11] * mValues[14] + 
+              mValues[9]  * mValues[2] * mValues[15] - 
+              mValues[9]  * mValues[3] * mValues[14] - 
+              mValues[13] * mValues[2] * mValues[11] + 
+              mValues[13] * mValues[3] * mValues[10];
+
+    temp[5] = mValues[0]  * mValues[10] * mValues[15] - 
+             mValues[0]  * mValues[11] * mValues[14] - 
+             mValues[8]  * mValues[2] * mValues[15] + 
+             mValues[8]  * mValues[3] * mValues[14] + 
+             mValues[12] * mValues[2] * mValues[11] - 
+             mValues[12] * mValues[3] * mValues[10];
+
+    temp[9] = -mValues[0]  * mValues[9] * mValues[15] + 
+              mValues[0]  * mValues[11] * mValues[13] + 
+              mValues[8]  * mValues[1] * mValues[15] - 
+              mValues[8]  * mValues[3] * mValues[13] - 
+              mValues[12] * mValues[1] * mValues[11] + 
+              mValues[12] * mValues[3] * mValues[9];
+
+    temp[13] = mValues[0]  * mValues[9] * mValues[14] - 
+              mValues[0]  * mValues[10] * mValues[13] - 
+              mValues[8]  * mValues[1] * mValues[14] + 
+              mValues[8]  * mValues[2] * mValues[13] + 
+              mValues[12] * mValues[1] * mValues[10] - 
+              mValues[12] * mValues[2] * mValues[9];
+
+    temp[2] = mValues[1]  * mValues[6] * mValues[15] - 
+             mValues[1]  * mValues[7] * mValues[14] - 
+             mValues[5]  * mValues[2] * mValues[15] + 
+             mValues[5]  * mValues[3] * mValues[14] + 
+             mValues[13] * mValues[2] * mValues[7] - 
+             mValues[13] * mValues[3] * mValues[6];
+
+    temp[6] = -mValues[0]  * mValues[6] * mValues[15] + 
+              mValues[0]  * mValues[7] * mValues[14] + 
+              mValues[4]  * mValues[2] * mValues[15] - 
+              mValues[4]  * mValues[3] * mValues[14] - 
+              mValues[12] * mValues[2] * mValues[7] + 
+              mValues[12] * mValues[3] * mValues[6];
+
+    temp[10] = mValues[0]  * mValues[5] * mValues[15] - 
+              mValues[0]  * mValues[7] * mValues[13] - 
+              mValues[4]  * mValues[1] * mValues[15] + 
+              mValues[4]  * mValues[3] * mValues[13] + 
+              mValues[12] * mValues[1] * mValues[7] - 
+              mValues[12] * mValues[3] * mValues[5];
+
+    temp[14] = -mValues[0]  * mValues[5] * mValues[14] + 
+               mValues[0]  * mValues[6] * mValues[13] + 
+               mValues[4]  * mValues[1] * mValues[14] - 
+               mValues[4]  * mValues[2] * mValues[13] - 
+               mValues[12] * mValues[1] * mValues[6] + 
+               mValues[12] * mValues[2] * mValues[5];
+
+    temp[3] = -mValues[1] * mValues[6] * mValues[11] + 
+              mValues[1] * mValues[7] * mValues[10] + 
+              mValues[5] * mValues[2] * mValues[11] - 
+              mValues[5] * mValues[3] * mValues[10] - 
+              mValues[9] * mValues[2] * mValues[7] + 
+              mValues[9] * mValues[3] * mValues[6];
+
+    temp[7] = mValues[0] * mValues[6] * mValues[11] - 
+             mValues[0] * mValues[7] * mValues[10] - 
+             mValues[4] * mValues[2] * mValues[11] + 
+             mValues[4] * mValues[3] * mValues[10] + 
+             mValues[8] * mValues[2] * mValues[7] - 
+             mValues[8] * mValues[3] * mValues[6];
+
+    temp[11] = -mValues[0] * mValues[5] * mValues[11] + 
+               mValues[0] * mValues[7] * mValues[9] + 
+               mValues[4] * mValues[1] * mValues[11] - 
+               mValues[4] * mValues[3] * mValues[9] - 
+               mValues[8] * mValues[1] * mValues[7] + 
+               mValues[8] * mValues[3] * mValues[5];
+
+    temp[15] = mValues[0] * mValues[5] * mValues[10] - 
+              mValues[0] * mValues[6] * mValues[9] - 
+              mValues[4] * mValues[1] * mValues[10] + 
+              mValues[4] * mValues[2] * mValues[9] + 
+              mValues[8] * mValues[1] * mValues[6] - 
+              mValues[8] * mValues[2] * mValues[5];
+
+    float detterminate = mValues[0] * temp[0] + mValues[1] * temp[4] + mValues[2] * temp[8] + mValues[3] * temp[12];
+
+    if (detterminate == 0)
+	{
+        return;
+	}
+
+    detterminate = 1.0f / detterminate;
+
+    for (int i = 0; i < 16; i++)
+	{
+        mValues[i] = temp[i] * detterminate;
+	}
+}
+
+Matrix Matrix::Inverse()
+{
+	Matrix result;
+
+	float temp[16];
+
+    temp[0] = mValues[5]  * mValues[10] * mValues[15] - 
+             mValues[5]  * mValues[11] * mValues[14] - 
+             mValues[9]  * mValues[6]  * mValues[15] + 
+             mValues[9]  * mValues[7]  * mValues[14] +
+             mValues[13] * mValues[6]  * mValues[11] - 
+             mValues[13] * mValues[7]  * mValues[10];
+
+    temp[4] = -mValues[4]  * mValues[10] * mValues[15] + 
+              mValues[4]  * mValues[11] * mValues[14] + 
+              mValues[8]  * mValues[6]  * mValues[15] - 
+              mValues[8]  * mValues[7]  * mValues[14] - 
+              mValues[12] * mValues[6]  * mValues[11] + 
+              mValues[12] * mValues[7]  * mValues[10];
+
+    temp[8] = mValues[4]  * mValues[9] * mValues[15] - 
+             mValues[4]  * mValues[11] * mValues[13] - 
+             mValues[8]  * mValues[5] * mValues[15] + 
+             mValues[8]  * mValues[7] * mValues[13] + 
+             mValues[12] * mValues[5] * mValues[11] - 
+             mValues[12] * mValues[7] * mValues[9];
+
+    temp[12] = -mValues[4]  * mValues[9] * mValues[14] + 
+               mValues[4]  * mValues[10] * mValues[13] +
+               mValues[8]  * mValues[5] * mValues[14] - 
+               mValues[8]  * mValues[6] * mValues[13] - 
+               mValues[12] * mValues[5] * mValues[10] + 
+               mValues[12] * mValues[6] * mValues[9];
+
+    temp[1] = -mValues[1]  * mValues[10] * mValues[15] + 
+              mValues[1]  * mValues[11] * mValues[14] + 
+              mValues[9]  * mValues[2] * mValues[15] - 
+              mValues[9]  * mValues[3] * mValues[14] - 
+              mValues[13] * mValues[2] * mValues[11] + 
+              mValues[13] * mValues[3] * mValues[10];
+
+    temp[5] = mValues[0]  * mValues[10] * mValues[15] - 
+             mValues[0]  * mValues[11] * mValues[14] - 
+             mValues[8]  * mValues[2] * mValues[15] + 
+             mValues[8]  * mValues[3] * mValues[14] + 
+             mValues[12] * mValues[2] * mValues[11] - 
+             mValues[12] * mValues[3] * mValues[10];
+
+    temp[9] = -mValues[0]  * mValues[9] * mValues[15] + 
+              mValues[0]  * mValues[11] * mValues[13] + 
+              mValues[8]  * mValues[1] * mValues[15] - 
+              mValues[8]  * mValues[3] * mValues[13] - 
+              mValues[12] * mValues[1] * mValues[11] + 
+              mValues[12] * mValues[3] * mValues[9];
+
+    temp[13] = mValues[0]  * mValues[9] * mValues[14] - 
+              mValues[0]  * mValues[10] * mValues[13] - 
+              mValues[8]  * mValues[1] * mValues[14] + 
+              mValues[8]  * mValues[2] * mValues[13] + 
+              mValues[12] * mValues[1] * mValues[10] - 
+              mValues[12] * mValues[2] * mValues[9];
+
+    temp[2] = mValues[1]  * mValues[6] * mValues[15] - 
+             mValues[1]  * mValues[7] * mValues[14] - 
+             mValues[5]  * mValues[2] * mValues[15] + 
+             mValues[5]  * mValues[3] * mValues[14] + 
+             mValues[13] * mValues[2] * mValues[7] - 
+             mValues[13] * mValues[3] * mValues[6];
+
+    temp[6] = -mValues[0]  * mValues[6] * mValues[15] + 
+              mValues[0]  * mValues[7] * mValues[14] + 
+              mValues[4]  * mValues[2] * mValues[15] - 
+              mValues[4]  * mValues[3] * mValues[14] - 
+              mValues[12] * mValues[2] * mValues[7] + 
+              mValues[12] * mValues[3] * mValues[6];
+
+    temp[10] = mValues[0]  * mValues[5] * mValues[15] - 
+              mValues[0]  * mValues[7] * mValues[13] - 
+              mValues[4]  * mValues[1] * mValues[15] + 
+              mValues[4]  * mValues[3] * mValues[13] + 
+              mValues[12] * mValues[1] * mValues[7] - 
+              mValues[12] * mValues[3] * mValues[5];
+
+    temp[14] = -mValues[0]  * mValues[5] * mValues[14] + 
+               mValues[0]  * mValues[6] * mValues[13] + 
+               mValues[4]  * mValues[1] * mValues[14] - 
+               mValues[4]  * mValues[2] * mValues[13] - 
+               mValues[12] * mValues[1] * mValues[6] + 
+               mValues[12] * mValues[2] * mValues[5];
+
+    temp[3] = -mValues[1] * mValues[6] * mValues[11] + 
+              mValues[1] * mValues[7] * mValues[10] + 
+              mValues[5] * mValues[2] * mValues[11] - 
+              mValues[5] * mValues[3] * mValues[10] - 
+              mValues[9] * mValues[2] * mValues[7] + 
+              mValues[9] * mValues[3] * mValues[6];
+
+    temp[7] = mValues[0] * mValues[6] * mValues[11] - 
+             mValues[0] * mValues[7] * mValues[10] - 
+             mValues[4] * mValues[2] * mValues[11] + 
+             mValues[4] * mValues[3] * mValues[10] + 
+             mValues[8] * mValues[2] * mValues[7] - 
+             mValues[8] * mValues[3] * mValues[6];
+
+    temp[11] = -mValues[0] * mValues[5] * mValues[11] + 
+               mValues[0] * mValues[7] * mValues[9] + 
+               mValues[4] * mValues[1] * mValues[11] - 
+               mValues[4] * mValues[3] * mValues[9] - 
+               mValues[8] * mValues[1] * mValues[7] + 
+               mValues[8] * mValues[3] * mValues[5];
+
+    temp[15] = mValues[0] * mValues[5] * mValues[10] - 
+              mValues[0] * mValues[6] * mValues[9] - 
+              mValues[4] * mValues[1] * mValues[10] + 
+              mValues[4] * mValues[2] * mValues[9] + 
+              mValues[8] * mValues[1] * mValues[6] - 
+              mValues[8] * mValues[2] * mValues[5];
+
+    float detterminate = mValues[0] * temp[0] + mValues[1] * temp[4] + mValues[2] * temp[8] + mValues[3] * temp[12];
+
+    if (detterminate == 0)
+	{
+		Matrix identity = Matrix::Identity();
+        return identity;
+	}
+
+    detterminate = 1.0f / detterminate;
+
+    for (int i = 0; i < 4; i++)
+	{
+		for(int j = 0; j < 4; j++)
+		{
+			result.SetValue(i+1, j+1, temp[Matrix::TwoDimToOneDim(i, j, 4)] * detterminate);
+		}
+	}
+
+	return result;
+}
+
 float* Matrix::GetPtr()
 {
 	return mValues;
@@ -157,7 +485,7 @@ Matrix Matrix::GenLookAt(Vector3 target, Vector3 position, Vector3 up)
 
 Matrix Matrix::GenProjection(float fov, float aspectRatio, float near, float far)
 {
-	float size = near * tan((fov * (3.1415926 / 180.0)) / 2.0);
+	float size = near * tanf((fov * (3.1415926f / 180.0f)) / 2.0f);
 	float left = -size * aspectRatio;
 	float right = size * aspectRatio;
 	float bottom = -size;
@@ -169,6 +497,18 @@ Matrix Matrix::GenProjection(float fov, float aspectRatio, float near, float far
 	matrix.SetRow(3, 0                          , 0                          , -(far + near)/(far - near)      , -1);
 	matrix.SetRow(4, 0                          , 0                          , -(2 * far * near) / (far - near),  0);
 	return matrix;
+}
+
+Matrix Matrix::Identity()
+{
+	Matrix result;
+
+	result.SetRow(1, 1, 0, 0, 0);
+	result.SetRow(2, 0, 1, 0, 0);
+	result.SetRow(3, 0, 0, 1, 0);
+	result.SetRow(4, 0, 0, 0, 1);
+
+	return result;
 }
 
 int Matrix::TwoDimToOneDim(int y, int x, int width)

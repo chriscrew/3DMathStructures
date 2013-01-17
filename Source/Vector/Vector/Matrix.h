@@ -16,6 +16,12 @@ public:
 
 	Vector3 TransformPoint(Vector3 point);
 
+	void Transpose();
+	Matrix Transposed();
+
+	void Invert();
+	Matrix Inverse();
+
 	float* GetPtr();
 
 	static Matrix GenTranslation(Vector3 pos);
@@ -27,6 +33,8 @@ public:
 	static Matrix GenLookAt(Vector3 target, Vector3 position, Vector3 up);
 
 	static Matrix GenProjection(float fov, float aspectRatio, float near, float far);
+
+	static Matrix Identity();
 
 	Matrix operator*(const Matrix &rhs);
 	Matrix& operator*=(const Matrix &rhs);
