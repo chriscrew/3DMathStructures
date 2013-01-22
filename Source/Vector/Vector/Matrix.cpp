@@ -441,7 +441,7 @@ Matrix Matrix::GenRotation(Vector3 eulerAngles)
 	matrixZ.SetRow(3, 0.0f                , 0.0f                , 1.0f     , 0.0f);
 	matrixZ.SetRow(4, 0.0f                , 0.0f                , 0.0f     , 1.0f);
 
-	return matrixX * matrixY * matrixZ;
+	return matrixZ * matrixY * matrixX;
 }
 
 Matrix Matrix::GenRotation(float x, float y, float z)
@@ -464,7 +464,7 @@ Matrix Matrix::GenRotation(float x, float y, float z)
 	matrixZ.SetRow(3, 0.0f  , 0.0f  , 1.0f   , 0.0f);
 	matrixZ.SetRow(4, 0.0f  , 0.0f  , 0.0f   , 1.0f);
 
-	return matrixX * matrixY * matrixZ;
+	return matrixZ * matrixY * matrixX;
 }
 
 Matrix Matrix::GenLookAt(Vector3 target, Vector3 position, Vector3 up)
