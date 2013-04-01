@@ -16,17 +16,17 @@ Vector3::Vector3(float x, float y, float z)
 }
 
 
-float Vector3::X()
+float Vector3::X() const
 {
 	return mX;
 }
 
-float Vector3::Y()
+float Vector3::Y() const
 {
 	return mY;
 }
 
-float Vector3::Z()
+float Vector3::Z() const
 {
 	return mZ;
 }

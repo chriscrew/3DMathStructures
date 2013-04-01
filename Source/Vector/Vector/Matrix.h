@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Vector3.h"
+#include "Quaternion.h"
 
 class Matrix
 {
@@ -29,6 +30,7 @@ public:
 
 	static Matrix GenRotation(Vector3 eulerAngles);
 	static Matrix GenRotation(float x, float y, float z);
+	static Matrix GenRotation(Quaternion quaternion);
 
 	static Matrix GenLookAt(Vector3 target, Vector3 position, Vector3 up);
 

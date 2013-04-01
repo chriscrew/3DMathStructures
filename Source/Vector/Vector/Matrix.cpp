@@ -467,6 +467,18 @@ Matrix Matrix::GenRotation(float x, float y, float z)
 	return matrixZ * matrixY * matrixX;
 }
 
+Matrix Matrix::GenRotation(Quaternion quaternion)
+{
+	Matrix matrix;
+
+	matrix.SetRow(1, 1 - (2 * pow(quaternion.J(), 2)) - (2 * pow(quaternion.K(), 2))          , 2 * quaternion.I() * quaternion.J() - 2 * quaternion.K() * quaternion.R(), 2 * quaternion.I() * quaternion.K() + 2 * quaternion.J() * quaternion.R(), 0.0f);
+	matrix.SetRow(2, 2 * quaternion.I() * quaternion.J() + 2 * quaternion.K() * quaternion.R(), 1 - (2 * pow(quaternion.I(), 2)) - (2 * pow(quaternion.K(), 2))          , 2 * quaternion.J() * quaternion.K() - 2 * quaternion.I() * quaternion.R(), 0.0f);
+	matrix.SetRow(3, 2 * quaternion.I() * quaternion.K() - 2 * quaternion.J() * quaternion.R(), 2 * quaternion.J() * quaternion.K() + 2 * quaternion.I() * quaternion.R(), 1 - (2 * pow(quaternion.I(), 2)) - (2 * pow(quaternion.J(), 2))          , 0.0f);
+	matrix.SetRow(4, 0.0f                                                                     , 0.0f                                                                     , 0.0f                                                                     , 1.0f);
+
+	return matrix;
+}
+
 Matrix Matrix::GenLookAt(Vector3 target, Vector3 position, Vector3 up)
 {
 	Vector3 zAxis = (target - position).Normalized();

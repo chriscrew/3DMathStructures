@@ -8,9 +8,9 @@ public:
 	Vector3();
 	Vector3(float x, float y, float z);
 
-	float X();
-	float Y();
-	float Z();
+	float X() const;
+	float Y() const;
+	float Z() const;
 
 	void SetX(float x);
 	void SetY(float y);

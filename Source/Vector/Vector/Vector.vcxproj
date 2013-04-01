@@ -75,11 +75,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Matrix.h" />
+    <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
