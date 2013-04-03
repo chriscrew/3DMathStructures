@@ -53,21 +53,39 @@ void Quaternion::SetFromEuler(float x, float y, float z)
 {
 	const float toRad = 3.14159f / 180.0f;
  
-	float zRot = (z * toRad) / 2;
-	float yRot = (y * toRad) / 2;
-	float xRot = (x * toRad) / 2;
+	//float zRot = (z * toRad) / 2;
+	//float yRot = (y * toRad) / 2;
+	//float xRot = (x * toRad) / 2;
+ //
+	//float sinZ = sin(zRot);
+	//float cosZ = cos(zRot);
+	//float sinY = sin(yRot);
+	//float cosY = cos(yRot);
+	//float sinX = sin(xRot);
+	//float cosX = cos(xRot);
+ //
+	//r = cosZ * cosY * cosX + sinZ * sinY * sinX;
+	//i = sinZ * cosY * cosX - cosZ * sinY * sinX;
+	//j = cosZ * sinY * cosX + sinZ * cosY * sinX;
+	//k = cosZ * cosY * sinX - sinZ * sinY * cosX;
+
+	float xRot = (x * toRad) / 2.0f;
+	float yRot = (y * toRad) / 2.0f;
+	float zRot = (z * toRad) / 2.0f;
  
-	float sinZ = sin(zRot);
-	float cosZ = cos(  zRot);
+	float sinX = sin(xRot);
 	float sinY = sin(yRot);
-	float cosY  = cos(yRot);
-	float sinX = sin(  xRot);
-	float cosX    = cos(  xRot);
+	float sinZ = sin(zRot);
+	float cosX = cos(xRot);
+	float cosY = cos(yRot);
+	float cosZ = cos(zRot);
  
-	r = cosZ * cosY * cosX + sinZ * sinY * sinX;
-	i = sinZ * cosY * cosX - cosZ * sinY * sinX;
-	j = cosZ * sinY * cosX + sinZ * cosY * sinX;
-	k = cosZ * cosY * sinX - sinZ * sinY * cosX;
+	i = sinZ * cosX * cosY - cosZ * sinX * sinY;
+	j = cosZ * sinX * cosY + sinZ * cosX * sinY;
+	k = cosZ * cosX * sinY - sinZ * sinX * cosY;
+	r = cosZ * cosX * cosY + sinZ * sinX * sinY;
+
+	Normalize();
 }
 
 void Quaternion::SetFromEuler(Vector3& euler)

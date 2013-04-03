@@ -39,6 +39,7 @@ public:
 	static Matrix Identity();
 
 	Matrix operator*(const Matrix &rhs);
+	Vector3 operator*(const Vector3 &rhs);
 	Matrix& operator*=(const Matrix &rhs);
 	
 private:
@@ -51,5 +52,5 @@ private:
 	///////////////
 	float mValues[16];
 
-	static int TwoDimToOneDim(int x, int y, int width);
+	static inline int TwoDimToOneDim(int x, int y, int width);
 };

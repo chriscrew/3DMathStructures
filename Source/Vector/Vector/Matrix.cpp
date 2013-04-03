@@ -490,7 +490,7 @@ Matrix Matrix::GenLookAt(Vector3 target, Vector3 position, Vector3 up)
 	matrix.SetRow(1, xAxis.X()           , yAxis.X()           , -zAxis.X()           , 0);
 	matrix.SetRow(2, xAxis.Y()           , yAxis.Y()           , -zAxis.Y()           , 0);
 	matrix.SetRow(3, xAxis.Z()           , yAxis.Z()           , -zAxis.Z()           , 0);
-	matrix.SetRow(4, -xAxis.Dot(position), -yAxis.Dot(position), zAxis.Dot(position), 1);
+	matrix.SetRow(4, -xAxis.Dot(position), -yAxis.Dot(position), zAxis.Dot(position)  , 1);
 
 	return matrix;
 }
@@ -533,6 +533,17 @@ Matrix Matrix::operator*(const Matrix &rhs)
 	Matrix matrix = *this;
 	matrix *= rhs;
 	return matrix;
+}
+
+Vector3 Matrix::operator*(const Vector3 &rhs)
+{
+	Vector3 vector;
+
+	vector.SetX(mValues[Matrix::TwoDimToOneDim(0,0,4)] * rhs.X() + mValues[Matrix::TwoDimToOneDim(0,1,4)] * rhs.Y() + mValues[Matrix::TwoDimToOneDim(0,2,4)] * rhs.Z() + mValues[Matrix::TwoDimToOneDim(0,3,4)] * 1);
+	vector.SetY(mValues[Matrix::TwoDimToOneDim(1,0,4)] * rhs.X() + mValues[Matrix::TwoDimToOneDim(1,1,4)] * rhs.Y() + mValues[Matrix::TwoDimToOneDim(1,2,4)] * rhs.Z() + mValues[Matrix::TwoDimToOneDim(1,3,4)] * 1);
+	vector.SetZ(mValues[Matrix::TwoDimToOneDim(2,0,4)] * rhs.X() + mValues[Matrix::TwoDimToOneDim(2,1,4)] * rhs.Y() + mValues[Matrix::TwoDimToOneDim(2,2,4)] * rhs.Z() + mValues[Matrix::TwoDimToOneDim(2,3,4)] * 1);
+
+	return vector;
 }
 
 Matrix& Matrix::operator*=(const Matrix &rhs)
