@@ -3,10 +3,10 @@
 
 Matrix::Matrix()
 {
-	for(int i = 0; i < 16; i++)
-	{
-		mValues[i] = 0;
-	}
+	SetRow(1, 1, 0, 0, 0);
+	SetRow(2, 0, 1, 0, 0);
+	SetRow(3, 0, 0, 1, 0);
+	SetRow(4, 0, 0, 0, 1);
 }
 
 Matrix::~Matrix()
