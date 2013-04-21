@@ -49,41 +49,26 @@ void Quaternion::Set(float R, float I, float J, float K)
 	k = K;
 }
 
+//based on http://www.gamedev.net/topic/632607-euler-to-quaternion-and-back-with-rotation-order-yaw-pitch-roll/
 void Quaternion::SetFromEuler(float x, float y, float z)
 {
 	const float toRad = 3.14159f / 180.0f;
- 
-	//float zRot = (z * toRad) / 2;
-	//float yRot = (y * toRad) / 2;
-	//float xRot = (x * toRad) / 2;
- //
-	//float sinZ = sin(zRot);
-	//float cosZ = cos(zRot);
-	//float sinY = sin(yRot);
-	//float cosY = cos(yRot);
-	//float sinX = sin(xRot);
-	//float cosX = cos(xRot);
- //
-	//r = cosZ * cosY * cosX + sinZ * sinY * sinX;
-	//i = sinZ * cosY * cosX - cosZ * sinY * sinX;
-	//j = cosZ * sinY * cosX + sinZ * cosY * sinX;
-	//k = cosZ * cosY * sinX - sinZ * sinY * cosX;
-
-	float xRot = (x * toRad) / 2.0f;
-	float yRot = (y * toRad) / 2.0f;
-	float zRot = (z * toRad) / 2.0f;
- 
-	float sinX = sin(xRot);
-	float sinY = sin(yRot);
-	float sinZ = sin(zRot);
-	float cosX = cos(xRot);
-	float cosY = cos(yRot);
-	float cosZ = cos(zRot);
- 
-	i = sinZ * cosX * cosY - cosZ * sinX * sinY;
-	j = cosZ * sinX * cosY + sinZ * cosX * sinY;
-	k = cosZ * cosX * sinY - sinZ * sinX * cosY;
-	r = cosZ * cosX * cosY + sinZ * sinX * sinY;
+	
+	float newx = fmod(x, 360.0f) * toRad;
+	float newy = fmod(y, 360.0f) * toRad;
+	float newz = fmod(z, 360.0f) * toRad;
+	float c1 = cos(-newz/2.0f);
+	float s1 = sin(-newz/2.0f);
+	float c2 = cos(-newx/2.0f);
+	float s2 = sin(-newx/2.0f);
+	float c3 = cos(-newy/2.0f);
+	float s3 = sin(-newy/2.0f);
+	float c1_c2 = c1 * c2;
+	float s1_s2 = s1 * s2;
+	i = c1*s2*c3 - s1*c2*s3;
+	j = c1_c2*s3 + s1_s2*c3;
+	k = s1*c2*c3 + c1*s2*s3;
+	r = c1_c2*c3 - s1_s2*s3;
 
 	Normalize();
 }
@@ -144,9 +129,9 @@ Quaternion& Quaternion::operator*=(const Quaternion &rhs)
 	Quaternion temp = *this;
 
 	r = temp.r * rhs.r - temp.i * rhs.i - temp.j * rhs.j - temp.k * rhs.k;
-	i = temp.r * rhs.i - temp.i * rhs.r - temp.j * rhs.k - temp.k * rhs.j;
-	j = temp.r * rhs.j - temp.j * rhs.r - temp.k * rhs.i - temp.i * rhs.k;
-	k = temp.r * rhs.k - temp.k * rhs.r - temp.i * rhs.j - temp.j * rhs.i;
+	i = temp.r * rhs.i + temp.i * rhs.r + temp.j * rhs.k - temp.k * rhs.j;
+	j = temp.r * rhs.j + temp.j * rhs.r + temp.k * rhs.i - temp.i * rhs.k;
+	k = temp.r * rhs.k + temp.k * rhs.r + temp.i * rhs.j - temp.j * rhs.i;
 
 	return *this;
 }

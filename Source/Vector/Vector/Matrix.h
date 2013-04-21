@@ -15,6 +15,9 @@ public:
 	void SetRow(int row, float x, float y, float z, float w);
 	void SetCollumm(int collumn, float x, float y, float z, float w);
 
+	Vector3 GetRow(int row);
+	Vector3 GetCollumn(int collumn);
+
 	Vector3 TransformPoint(Vector3 point);
 
 	void Transpose();

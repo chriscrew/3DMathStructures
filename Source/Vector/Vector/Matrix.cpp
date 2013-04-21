@@ -49,6 +49,30 @@ void Matrix::SetCollumm(int collumn, float x, float y, float z, float w)
 	mValues[(collumn * 4) + 3] = w;
 }
 
+Vector3 Matrix::GetRow(int row)
+{
+	Vector3 toReturn;
+
+	row -=1;
+	toReturn.SetX(mValues[row     ]);
+	toReturn.SetY(mValues[row + 4 ]);
+	toReturn.SetZ(mValues[row + 8 ]);
+	
+	return toReturn;
+}
+
+Vector3 Matrix::GetCollumn(int collumn)
+{
+	Vector3 toReturn;
+
+	collumn -= 1;
+	toReturn.SetX(mValues[(collumn * 4)    ]);
+	toReturn.SetY(mValues[(collumn * 4) + 1]);
+	toReturn.SetZ(mValues[(collumn * 4) + 2]);
+
+	return toReturn;
+}
+
 Vector3 Matrix::TransformPoint(Vector3 point)
 {
 	Vector3 result;
@@ -471,9 +495,9 @@ Matrix Matrix::GenRotation(Quaternion quaternion)
 {
 	Matrix matrix;
 
-	matrix.SetRow(1, 1 - (2 * pow(quaternion.J(), 2)) - (2 * pow(quaternion.K(), 2))          , 2 * quaternion.I() * quaternion.J() - 2 * quaternion.K() * quaternion.R(), 2 * quaternion.I() * quaternion.K() + 2 * quaternion.J() * quaternion.R(), 0.0f);
-	matrix.SetRow(2, 2 * quaternion.I() * quaternion.J() + 2 * quaternion.K() * quaternion.R(), 1 - (2 * pow(quaternion.I(), 2)) - (2 * pow(quaternion.K(), 2))          , 2 * quaternion.J() * quaternion.K() - 2 * quaternion.I() * quaternion.R(), 0.0f);
-	matrix.SetRow(3, 2 * quaternion.I() * quaternion.K() - 2 * quaternion.J() * quaternion.R(), 2 * quaternion.J() * quaternion.K() + 2 * quaternion.I() * quaternion.R(), 1 - (2 * pow(quaternion.I(), 2)) - (2 * pow(quaternion.J(), 2))          , 0.0f);
+	matrix.SetRow(1, 1.0f - (2.0f * pow(quaternion.J(), 2)) - (2.0f * pow(quaternion.K(), 2))          , 2.0f * quaternion.I() * quaternion.J() - 2.0f * quaternion.K() * quaternion.R(), 2.0f * quaternion.I() * quaternion.K() + 2.0f * quaternion.J() * quaternion.R(), 0.0f);
+	matrix.SetRow(2, 2.0f * quaternion.I() * quaternion.J() + 2 * quaternion.K() * quaternion.R(), 1.0f - (2.0f * pow(quaternion.I(), 2)) - (2.0f * pow(quaternion.K(), 2))          , 2.0f * quaternion.J() * quaternion.K() - 2.0f * quaternion.I() * quaternion.R(), 0.0f);
+	matrix.SetRow(3, 2.0f * quaternion.I() * quaternion.K() - 2 * quaternion.J() * quaternion.R(), 2.0f * quaternion.J() * quaternion.K() + 2.0f * quaternion.I() * quaternion.R(), 1.0f - (2.0f * pow(quaternion.I(), 2)) - (2 * pow(quaternion.J(), 2))          , 0.0f);
 	matrix.SetRow(4, 0.0f                                                                     , 0.0f                                                                     , 0.0f                                                                     , 1.0f);
 
 	return matrix;

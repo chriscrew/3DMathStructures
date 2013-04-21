@@ -37,6 +37,41 @@ public:
 	Vector3 operator/(const float &rhs);
 	Vector3& operator/=(const float &rhs);
 
+	float operator [](int i) const
+	{
+		switch(i)
+		{
+			case 0:
+				return mX;
+				break;
+
+			case 1:
+				return mY;
+				break;
+
+			default:
+				return mZ;
+				break;
+		}
+	}
+
+	float & operator [](int i) 
+	{
+		switch(i)
+		{
+			case 0:
+				return mX;
+				break;
+
+			case 1:
+				return mY;
+				break;
+
+			default:
+				return mZ;
+				break;
+		}
+	}
 
 private:
 
