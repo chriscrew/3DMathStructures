@@ -49,12 +49,12 @@ float Vector2::LengthSquared()
 
 float Vector2::Distance(Vector2 other)
 {
-	return sqrt(pow(other.X() - mX, 2) + pow(other.X() - mY, 2));
+	return sqrt(pow(other.X() - mX, 2) + pow(other.Y() - mY, 2));
 }
 
 float Vector2::DistanceSquared(Vector2 other)
 {
-	return pow(other.X() - mX, 2) + pow(other.X() - mY, 2);
+	return pow(other.X() - mX, 2) + pow(other.Y() - mY, 2);
 }
 
 
